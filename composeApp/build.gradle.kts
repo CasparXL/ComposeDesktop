@@ -17,6 +17,8 @@ kotlin {
             implementation(libs.compose.material3)
             implementation(libs.compose.icon)
             implementation(libs.compose.ui)
+            implementation(libs.compose.image)
+            implementation(libs.compose.image.ext)
             implementation(libs.compose.navigation)
             implementation(libs.compose.components.resources)
             implementation(libs.compose.uiToolingPreview)
