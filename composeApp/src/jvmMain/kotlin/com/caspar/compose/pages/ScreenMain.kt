@@ -17,7 +17,13 @@ import androidx.compose.material.MaterialTheme
 import androidx.compose.material3.Surface
 import androidx.compose.material3.Text
 import androidx.compose.runtime.Composable
+import androidx.compose.runtime.DisposableEffect
+import androidx.compose.runtime.LaunchedEffect
 import androidx.compose.runtime.getValue
+import androidx.compose.runtime.mutableStateOf
+import androidx.compose.runtime.remember
+import androidx.compose.runtime.rememberCoroutineScope
+import androidx.compose.runtime.setValue
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.graphics.Color
@@ -27,9 +33,15 @@ import androidx.navigation.compose.NavHost
 import androidx.navigation.compose.composable
 import androidx.navigation.compose.currentBackStackEntryAsState
 import androidx.navigation.compose.rememberNavController
+import com.caspar.compose.entry.UserPrefs
 import com.caspar.compose.pages.home.HomeScreen
 import com.caspar.compose.pages.profile.ProfileScreen
 import com.caspar.compose.pages.settings.SettingsScreen
+import com.caspar.compose.util.AppStorage
+import com.caspar.compose.util.json
+import com.caspar.compose.util.logger
+import com.caspar.compose.util.toJsonString
+import kotlinx.coroutines.launch
 
 @Composable
 fun SideBarApp() {
@@ -42,6 +54,7 @@ fun SideBarApp() {
             items = listOf(MenuItem.Home, MenuItem.Profile, MenuItem.Settings),
             currentRoute = currentRoute,
             onNavigate = { route ->
+                if (route == currentRoute) return@SideBar
                 navController.navigate(route) {
                     launchSingleTop = true
                     restoreState = true
@@ -106,12 +119,16 @@ fun MenuItemButton(
         Icon(
             imageVector = icon,
             contentDescription = null,
-            tint = if (isSelected) MaterialTheme.colors.primary else MaterialTheme.colors.onSurface.copy(alpha = 0.6f)
+            tint = if (isSelected) MaterialTheme.colors.primary else MaterialTheme.colors.onSurface.copy(
+                alpha = 0.6f
+            )
         )
         Spacer(modifier = Modifier.width(8.dp))
         Text(
             text = label,
-            color = if (isSelected) MaterialTheme.colors.primary else MaterialTheme.colors.onSurface.copy(alpha = 0.8f)
+            color = if (isSelected) MaterialTheme.colors.primary else MaterialTheme.colors.onSurface.copy(
+                alpha = 0.8f
+            )
         )
     }
 }

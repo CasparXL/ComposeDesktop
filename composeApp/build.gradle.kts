@@ -1,3 +1,4 @@
+import org.gradle.kotlin.dsl.composeCompiler
 import org.jetbrains.compose.desktop.application.dsl.TargetFormat
 
 plugins {
@@ -5,6 +6,7 @@ plugins {
     alias(libs.plugins.composeMultiplatform)
     alias(libs.plugins.composeCompiler)
     alias(libs.plugins.composeHotReload)
+    alias(libs.plugins.jsonSerialization)
 }
 
 kotlin {
@@ -19,7 +21,9 @@ kotlin {
             implementation(libs.compose.ui)
             implementation(libs.compose.image)
             implementation(libs.compose.image.ext)
+            implementation(libs.compose.json)
             implementation(libs.compose.navigation)
+            implementation(libs.compose.log)
             implementation(libs.compose.components.resources)
             implementation(libs.compose.uiToolingPreview)
             implementation(libs.androidx.lifecycle.viewmodelCompose)
@@ -34,7 +38,6 @@ kotlin {
         }
     }
 }
-
 
 compose.desktop {
     application {

@@ -14,6 +14,11 @@ import org.jetbrains.compose.resources.painterResource
 fun main() {
     // 修改渲染模式解决界面抖动问题(一般发生在高分辨率的情况下)
     System.setProperty("skiko.renderApi", "OPENGL")
+    /**
+     * println打印乱码时可使用如下方式解决
+     * System.setOut(PrintStream(System.out, true, "UTF-8"))
+     * System.setErr(PrintStream(System.err, true, "UTF-8"))
+     */
     application {
         MaterialTheme {
             Window(
